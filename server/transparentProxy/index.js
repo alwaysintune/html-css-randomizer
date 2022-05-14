@@ -1,6 +1,10 @@
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+
 import express from "express";
 import { createProxyMiddleware } from "http-proxy-middleware";
 import cookieParser from "cookie-parser";
+const perimeterx = require("perimeterx-node-express");
 import { cryptoService } from "../../services/cryptography";
 import {
   BUFFER_ENCODING,
@@ -9,6 +13,9 @@ import {
   PROXY_HOST,
   PROXY_PORT,
   PUBLIC_KEY,
+  PX_APP_ID,
+  PX_COOKIE_ENCRYPTION_KEY,
+  PX_TOKEN,
   SERVER_ADDRESS,
 } from "../../sharedConstants";
 
@@ -30,6 +37,20 @@ const decryptPath = (path) => {
 const app = express();
 
 app.use(cookieParser());
+
+if (PX_APP_ID && PX_COOKIE_ENCRYPTION_KEY && PX_TOKEN) {
+  const pxConfig = {
+    px_app_id: "",
+    px_cookie_secret: "",
+    px_auth_token: "",
+    px_module_enabled: true, // enable enforcer
+    px_module_mode: "active_blocking",
+    px_blocking_score: 100,
+    px_send_async_activities_enabled: true,
+  };
+  perimeterx.init(pxConfig);
+  app.use(perimeterx.middleware);
+}
 
 const apiProxy = createProxyMiddleware({
   target: SERVER_ADDRESS,

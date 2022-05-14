@@ -28,3 +28,7 @@ export const WEBSITE_PATH = "./website/books.toscrape.com";
 
 export const FIRST_REQUEST_TTL_IN_SECONDS = TimeValue.getDaysInSeconds(1);
 export const FIRST_REQUEST_COOKIE = "first-request";
+
+export const PX_APP_ID = "";
+export const PX_COOKIE_ENCRYPTION_KEY = "";
+export const PX_TOKEN = "";

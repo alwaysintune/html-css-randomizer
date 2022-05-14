@@ -25,7 +25,8 @@
     "http-proxy-middleware": "^2.0.6",
     "javascript-obfuscator": "^4.0.0",
     "lru-cache": "^7.10.1",
-    "node-fetch": "^3.2.4"
+    "node-fetch": "^3.2.4",
+    "perimeterx-node-express": "^7.3.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
